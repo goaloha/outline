@@ -6,7 +6,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/b5/outline/lib"
+	"github.com/goaloha/outline/lib"
 	"github.com/spf13/cobra"
 	parseutil "gopkg.in/src-d/go-parse-utils.v1"
 )

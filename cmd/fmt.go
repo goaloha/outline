@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/b5/outline/lib"
+	"github.com/goaloha/outline/lib"
 	"github.com/spf13/cobra"
 )
 

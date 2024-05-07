@@ -5,11 +5,13 @@ I spend a lot of time sketching out software packages. These sketches are often 
 While working on a standard library for starlark I ran into the issue of needing a way to embed documentation about a package that's written in go, but targets another language (starlark). I figure with a little rigor it'd be easiest to formalize my preferred outlining format in a way that it can be embedded in a comment, riding with the source code itself. Using the "template" commands we can generate documentation markdown for our website
 
 ### Project Status
+
 use-at-your-own-risk alpha. I'm working on this with Qri's [rfc](https://github.com/qri-io/rfcs) and [starlib](https://github.com/qri-io/starlib) projects as concrete use-cases to drive development.
 
 ### Example
+
 ```shell
-go install github.com/b5/outline
+go install github.com/goaloha/outline@latest
 ```
 
 make a file: `outline.txt`:
