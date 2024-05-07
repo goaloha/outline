@@ -270,6 +270,20 @@ var withExamples = &Doc{
 	},
 }
 
+const withConstantsText = `outline: string
+	constants:
+        ascii_letters: A string containing all the characters that are considered letters.
+        digits: A string containing all characters considered decimal digits: '0123456789'
+`
+
+var withConstants = &Doc{
+	Name: "string",
+	Constants: []*Constant{
+		{Name: "ascii_letters", Description: "A string containing all the characters that are considered letters."},
+		{Name: "digits", Description: "A string containing all characters considered decimal digits: '0123456789'"},
+	},
+}
+
 func TestParse(t *testing.T) {
 	cases := []struct {
 		name string
@@ -286,6 +300,7 @@ func TestParse(t *testing.T) {
 		{"dataframe", dataframeTabs, dataframe, ""},
 		{"leading_and_trailing", ignoreOuterText, ignoreOuter, ""},
 		{"examples", withExamplesText, withExamples, ""},
+		{"constants", withConstantsText, withConstants, ""},
 	}
 
 	for _, c := range cases {

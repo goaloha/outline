@@ -5,8 +5,9 @@ type Option interface {
 }
 
 type config struct {
-	alphaSortTypes bool
-	alphaSortFuncs bool
+	alphaSortTypes     bool
+	alphaSortFuncs     bool
+	alphaSortConstants bool
 }
 
 func AlphaSortTypes() Option { return alphaSortTypes{} }
@@ -24,6 +25,15 @@ type alphaSortFuncs struct{}
 
 func (o alphaSortFuncs) apply(cfg *config) error {
 	cfg.alphaSortFuncs = true
+	return nil
+}
+
+func AlphaSortConstants() Option { return alphaSortConstants{} }
+
+type alphaSortConstants struct{}
+
+func (o alphaSortConstants) apply(cfg *config) error {
+	cfg.alphaSortConstants = true
 	return nil
 }
 

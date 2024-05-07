@@ -60,6 +60,8 @@ const (
 	MethodsTok
 	// OperatorsTok is the "operators:" token
 	OperatorsTok
+	// ConstantsTok is the "constants:" token
+	ConstantsTok
 	// KeywordEnd marks the end of keyword tokens in the token enumeration
 	KeywordEnd
 )

@@ -80,6 +80,8 @@ func (s *scanner) Scan() Token {
 				return s.newTok(CodeTok)
 			case "examples":
 				return s.newTok(ExamplesTok)
+			case "constants":
+				return s.newTok(ConstantsTok)
 			default:
 				s.text.WriteRune(':')
 			}

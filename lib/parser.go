@@ -146,6 +146,10 @@ func (p *parser) readDocument(baseIndent int) (doc *Doc, err error) {
 			if doc.Types, err = p.readTypes(p.indent); err != nil {
 				return
 			}
+		case ConstantsTok:
+			if doc.Constants, err = p.readConstants(p.indent); err != nil {
+				return
+			}
 		case TextTok:
 			// only read descriptions when indented
 			if p.indent > baseIndent {
@@ -429,6 +433,33 @@ func (p *parser) readExample(baseIndent int) (eg *Example, err error) {
 			return eg, nil
 		}
 	}
+}
+
+func (p *parser) readConstants(baseIndent int) (consts []*Constant, err error) {
+	for {
+		var c *Constant
+		if c, err = p.readConstant(baseIndent + 1); err != nil || c == nil {
+			return
+		}
+		consts = append(consts, c)
+	}
+}
+
+func (p *parser) readConstant(baseIndent int) (c *Constant, err error) {
+	tok := p.scan()
+	if p.indent < baseIndent || tok.Type != TextTok {
+		p.unscan()
+		return
+	}
+
+	// Split the token text into name and description based on the first colon.
+	parts := strings.SplitN(tok.Text, ":", 2)
+	if len(parts) != 2 {
+		return nil, fmt.Errorf("failed to parse constant: %s", tok.Text)
+	}
+
+	c = &Constant{Name: strings.TrimSpace(parts[0]), Description: strings.TrimSpace(parts[1])}
+	return
 }
 
 func (p *parser) errorf(format string, args ...interface{}) error {

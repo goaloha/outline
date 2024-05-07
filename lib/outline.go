@@ -36,6 +36,7 @@ type Doc struct {
 	Description string
 	Functions   Functions
 	Types       Types
+	Constants   Constants
 }
 
 // Sort sorts all sortable fields in the document
@@ -45,6 +46,9 @@ func (d *Doc) Sort() {
 	}
 	if d.cfg.alphaSortTypes {
 		sort.Sort(d.Types)
+	}
+	if d.cfg.alphaSortConstants {
+		sort.Sort(d.Constants)
 	}
 }
 
@@ -208,3 +212,14 @@ type Example struct {
 	Description string
 	Code        string
 }
+
+type Constant struct {
+	Name        string
+	Description string
+}
+
+type Constants []*Constant
+
+func (c Constants) Len() int           { return len(c) }
+func (c Constants) Less(i, j int) bool { return c[i].Name < c[j].Name }
+func (c Constants) Swap(i, j int)      { c[i], c[j] = c[j], c[i] }
