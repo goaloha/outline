@@ -8,7 +8,7 @@ BINARY := outline
 export CGO_ENABLED=0
 export FLAGS="-s -w"
 
-.PHONY: default run build install test bench doc clean artifact
+.PHONY: default run build install preview test bench doc clean artifact
 
 default:
 	@echo "build target is required for $(BINARY)"
@@ -22,6 +22,9 @@ build:
 
 install: build
 	install -m 0755 $(BINARY) $(GOPATH)/bin
+
+preview:
+	./$(BINARY) help
 
 test:
 	go test -race -cover -covermode=atomic -v -count 1 .
