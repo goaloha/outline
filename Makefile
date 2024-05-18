@@ -3,43 +3,38 @@ SHELL := bash
 .ONESHELL:
 .SHELLFLAGS := -eu -o pipefail -c
 
-BINARY=outline
-
-# for go dev
-GOCMD=go
-GORUN=$(GOCMD) run
-GOBUILD=$(GOCMD) build
-GOTEST=$(GOCMD) test
-GODOC=$(GOCMD) doc
-GOGET=$(GOCMD) get
-GOMOD=$(GOCMD) mod
+BINARY := outline
 
 export CGO_ENABLED=0
 export FLAGS="-s -w"
 
-# commands
 .PHONY: default run build install test bench doc clean artifact
+
 default:
 	@echo "build target is required for $(BINARY)"
 	@exit 1
 
-# basic commands
 run:
-	$(GORUN) . v
+	go run . -v
+
 build:
-	$(GOBUILD) -v -ldflags $(FLAGS) -trimpath -o $(BINARY)
+	go build -v -ldflags $(FLAGS) -trimpath -o $(BINARY)
+
 install: build
-	mv $(BINARY) $$GOPATH/bin
+	install -m 0755 $(BINARY) $(GOPATH)/bin
+
 test:
-	$(GOTEST) -race -cover -covermode=atomic -v -count 1 .
+	go test -race -cover -covermode=atomic -v -count 1 .
+
 bench:
-	$(GOTEST) -parallel=4 -run="none" -benchtime="5s" -benchmem -bench=.
+	go test -parallel=4 -run="none" -benchtime="5s" -benchmem -bench=.
+
 doc:
-	$(GODOC) -all ...
+	go doc -all ...
+
 clean:
 	rm -f $(BINARY)*
 
-# for ci
 artifact:
 	test -n "$(OSEXT)"
 	mkdir -p _upload
