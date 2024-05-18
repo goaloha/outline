@@ -56,11 +56,10 @@ jobs:
           go mod download
           make --version
           make build
-      - name: Test
+      - name: Artifact
         env:
           OSEXT: ${{ fromJSON(env.OSEXT_MAP)[runner.os] }}
         run: |
-          make preview
           make artifact
 
       - name: Upload Artifact
