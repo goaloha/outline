@@ -27,7 +27,7 @@ preview:
 	./$(BINARY) help
 
 test:
-	go test -race -cover -covermode=atomic -v -count 1 .
+	CGO_ENABLED=1 go test -race -cover -covermode=atomic -v -count 1 .
 
 bench:
 	go test -parallel=4 -run="none" -benchtime="5s" -benchmem -bench=.
